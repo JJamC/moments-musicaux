@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "Article" ALTER COLUMN "createdAt" DROP DEFAULT,
+ALTER COLUMN "createdAt" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "Comments" ALTER COLUMN "createdAt" DROP DEFAULT,
+ALTER COLUMN "createdAt" SET DATA TYPE TEXT;

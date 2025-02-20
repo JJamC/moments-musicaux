@@ -1,20 +1,49 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
-datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+model User {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  username   String     @db.VarChar(255)
+  email      String     @db.VarChar(255)
+  avatar_url String
+  articles   Article[]
+  comments   Comments[]
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Topic {
+  slug       String    @unique @db.VarChar(255)
+  description String
+  Article    Article[]
+}
 
-    @@index([name])
+model Article {
+  id              Int        @id @default(autoincrement())
+  title           String
+  topic           Topic      @relation(fields: [topicName], references: [slug])
+  topicName       String
+  author          User       @relation(fields: [authorId], references: [id])
+  authorId        Int
+  body            String
+  createdAt       String
+  votes           Int        @default(0)
+  article_img_url String     @default("https://static1.srcdn.com/wordpress/wp-content/uploads/2022/03/ERNIGEL.jpg")
+  Comments        Comments[]
+}
+
+model Comments {
+  id        Int      @id @default(autoincrement())
+  article   Article  @relation(fields: [articleId], references: [id])
+  body      String
+  articleId Int
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  votes     Int      @default(0)
+  createdAt String
 }
