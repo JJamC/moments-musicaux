@@ -14,7 +14,7 @@ interface ArticleCardProps {
   }
 }
 
-export default async function ArticleCard(props: ArticleCardProps) {
+export default function ArticleCard(props: ArticleCardProps) {
   const { article } = props
   
   const articleLink = `/articles/${article.id}`

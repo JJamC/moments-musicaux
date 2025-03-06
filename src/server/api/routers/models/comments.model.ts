@@ -21,4 +21,23 @@ if (!comments) {
   return comments;
 };
 
+export const postComment = async (articleId : number, authorId: number, body: string)=> {
+
+  const newComment = await prisma.comments.create({
+    data: {
+      articleId,
+      authorId,
+      body,
+      createdAt: Date.now().toString()
+    }
+  })
+  return {
+    id: newComment.id,
+    articleId: newComment.articleId,
+    authorId: newComment.authorId,
+    body: newComment.body,
+    votes: newComment.votes,
+    createdAt: newComment.createdAt,
+  }
+}
 

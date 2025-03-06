@@ -12,6 +12,26 @@ export const findUsers = async () => {
   }
 })
   return users;
+};
 
+export const fetchUser = async (id: number) => {
+
+  const user = await prisma.user.findUnique({
+    select: {
+      id: true,
+      createdAt: true,
+      username: true,
+      email: true,
+      avatar_url: true,
+    },
+    where: {
+      id: id,
+    },
+  });
+
+  if (!user) {
+    throw Error("user null");
+  }
+  return user;
 };
 

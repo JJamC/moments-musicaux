@@ -38,13 +38,12 @@ const article = data;
         <img src={article.article_img_url} width="500px" height="500px"/>
         <p>{article.createdAt}</p>
         <p>{article.topicName}</p>
-        <p>{article.votes}</p>
+        <VoteButton id={article.id} votes={article.votes}/>
         <section>
           <p>
             {article.body}
           </p>
         </section>
-        <VoteButton id={article.id}/>
       <Comments id={article.id}/>
       </div>
     </main>}

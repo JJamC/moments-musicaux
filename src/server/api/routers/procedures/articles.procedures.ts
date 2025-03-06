@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { publicProcedure } from "../../trpc";
-import { fetchArticle, findArticles, incrementArticleVote } from "../models/articles.model";
+import { fetchArticle, findArticles, incrementArticleVote, decrementArticleVote } from "../models/articles.model";
 
 
 export const listArticles = 
@@ -53,4 +53,11 @@ publicProcedure.output(
       await incrementArticleVote(id)
     })
 
+  export const downVoteArticle = 
+  publicProcedure
+  .input(z.object({ id: z.number()}))
+    .mutation(async (opts) => {
+      const {input: {id}} = opts
+      await decrementArticleVote(id)
+    })
   

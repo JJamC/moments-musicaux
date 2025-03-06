@@ -52,3 +52,16 @@ export const incrementArticleVote = async (id: number) => {
     },
   });
 };
+
+export const decrementArticleVote = async (id: number) => {
+  await prisma.article.update({
+    where: {
+      id: id,
+    },
+    data: {
+      votes: {
+        decrement: 1,
+      },
+    },
+  });
+};
