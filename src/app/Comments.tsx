@@ -7,22 +7,13 @@ interface CommentsProps {
   id: number;
 }
 
-interface CommentState {
-  articleId: number;
-  authorId: number;
-  body: string;
-  createdAt: string;
-  id: number;
-  votes: number;
-}
-
 
 export type CommentMutationType = ReturnType<typeof api.comment.handleCommentPost.useMutation>;
 
 export function Comments(props: CommentsProps) {
 
   const { id } = props;
-  const { data: comments, isLoading, isError, error, refetch } =
+  const { data: comments, isLoading, isError, error } =
     api.comment.listCommentsByArticle.useQuery({ id: id });
 
   const commentMutation = api.comment.handleCommentPost.useMutation()  

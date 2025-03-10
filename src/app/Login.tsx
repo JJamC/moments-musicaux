@@ -33,7 +33,6 @@ export function Login(props: LoginProps) {
     
     return (
         <div>
-        <h1>Hello Context</h1>
         {isUser ? 
         <p>"debussyC"</p> : 
         <form onSubmit={(e) => {

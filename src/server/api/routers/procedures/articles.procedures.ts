@@ -20,7 +20,11 @@ publicProcedure.output(
   )
   .query(async () => {
     const articles = await findArticles()
-    return articles
+    return articles.map((article) => {
+      article.topicName = article.topicName[0]?.toUpperCase() + article.topicName.slice(1)
+      //created_at to be formatted
+      return article
+    })
   });
 
   export const getArticle = 
@@ -41,6 +45,7 @@ publicProcedure.output(
   .query(async (opts) => {
     const { input: {id} } = opts
     const article = await fetchArticle(id)
+    article.topicName = article.topicName[0]?.toUpperCase() + article.topicName.slice(1)
     return article
   });
 

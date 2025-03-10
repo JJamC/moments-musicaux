@@ -5,25 +5,13 @@ import { Comments } from "~/app/Comments";
 import VoteButton from "~/app/VoteButton";
 import { api } from "~/trpc/react";
 
-// type ArticleData = {
-//   id: number;
-//     title: string;
-//     topicName: string;
-//     authorId: number;
-//     body: string;
-//     createdAt: string;
-//     votes: number;
-//     article_img_url: string;
-// }
-
 export default function Article() {
 
   const {id} = useParams()
-  // const [isLoading, setIsLoading] = useState(true)
 
 const formattedId = Number(id);
-const {data} = api.article.getArticle.useQuery({id: formattedId})
-const article = data;
+const {data: article} = api.article.getArticle.useQuery({id: formattedId})
+
 
   if(!article) {
     return <p>Loading</p> 
@@ -31,16 +19,22 @@ const article = data;
   
   return (
     <div>
-      {!article? <p>Loading</p> :   <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <Link href="/">Back Home</Link>
-        <h2>{article.title}</h2>
-        <img src={article.article_img_url} width="500px" height="500px"/>
-        <p>{article.createdAt}</p>
+      {!article? <p>Loading</p> :   <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-teal-400 to-teal-800 text-white">
+      <div className="bg-gray-100 bg-opacity-85 text-gray-900 container flex flex-col items-center justify-center gap-12 px-4 py-16">
+        <Link href="/">
+        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow float-left mt-4 ml-4">
+  Home
+</button>
+        </Link>
+        <h2 className="text-3xl font-semibold text-gray-900">{article.title}</h2>
+        <img className="object-cover object-center w-full rounded-lg h-96" src={article.article_img_url}/>
+        <div className="flex justify-between justify-evenly w-full">
         <p>{article.topicName}</p>
+        <p>{article.createdAt}</p>
         <VoteButton id={article.id} votes={article.votes}/>
-        <section>
-          <p>
+        </div>
+        <section className="bg-white shadow-lg rounded-lg p-6">
+          <p className="mt-4 text-lg leading-relaxed text-gray-900">
             {article.body}
           </p>
         </section>

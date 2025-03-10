@@ -47,20 +47,23 @@ export default function CommentPost(props: CommentPostProps) {
   setCommentBody("")
 }
 
-  return (<div>
-  <form className="h-100 w-100"
+  return (
+            <div className="w-full flex-col items-center justify-center items-start gap-8 flex">
+                <form
   onSubmit={(e) => {handleCommentPost(e)}}>
-    <input
-    className="text-black"  
-    name="comment"
-    value={commentBody}
-    onChange={(e) => {
-        setCommentBody(e.target.value)
-    }}
-    required
-    />
-    <br></br>
-    <button type="submit">Post Comment</button>
-  </form>
-  </div>)
+            <input type="text"
+                className="w-full py-3 px-5 rounded-lg border border-gray-300 bg-white shadow-[0px_1px_2px_0px_rgba(16,_24,_40,_0.05)] focus:outline-none text-gray-900 placeholder-gray-400 text-lg font-normal leading-relaxed"
+                placeholder="Leave a comment..."
+                name="comment"
+                value={commentBody}
+                onChange={(e) => {
+                    setCommentBody(e.target.value)
+                }}
+                required/>
+              <button type="submit"
+                 className="w-full py-3 px-5 rounded-lg border border-gray-300 bg-white shadow-[0px_1px_2px_0px_rgba(16,_24,_40,_0.05)] focus:outline-none text-gray-900 placeholder-gray-400 text-lg font-normal leading-relaxed"
+              >Post Comment</button>
+              </form>
+        </div>
+  )
 }

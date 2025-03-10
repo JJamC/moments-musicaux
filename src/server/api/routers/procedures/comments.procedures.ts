@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { publicProcedure } from "../../trpc";
-import { findCommentsById, postComment } from "../models/comments.model";
+import { deleteComment, findCommentsById, postComment } from "../models/comments.model";
 
 interface CommentResponse {
   id: number,
@@ -57,4 +57,11 @@ publicProcedure
     const newComment = await postComment(articleId, authorId, body )
     return newComment
   })
-  
+
+  export const handleCommentDelete = 
+  publicProcedure
+  .input(z.object({ id: z.number()}))
+  .mutation(async(opts) => {
+    const { input : {id} } = opts
+    await deleteComment(id)
+  })

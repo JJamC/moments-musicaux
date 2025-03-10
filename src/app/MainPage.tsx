@@ -47,10 +47,12 @@ export default function MainPage() {
   return (
     <div>
         <Login users={users}/>
-      <h1>Articles</h1>
+      <h1 className="text-2xl font-bold dark:text-white">Articles</h1>
+      <article className="m-5">
       {articles.map((article) => {
         return <ArticleCard article={article} key={article.id} />;
       })}
+      </article>
     </div>
   );
 }
