@@ -61,7 +61,7 @@ publicProcedure
   export const handleCommentDelete = 
   publicProcedure
   .input(z.object({ id: z.number()}))
-  .mutation(async(opts) => {
+  .mutation(async(opts) : Promise<void> => {
     const { input : {id} } = opts
     await deleteComment(id)
   })

@@ -1,3 +1,7 @@
+"use client"
+import { handleCommentDelete } from "~/server/api/routers/procedures/comments.procedures"
+import { useAuth } from "./context/UserContext"
+import { api } from "~/trpc/react"
 
 interface CommentCardProps {
     comment: {
@@ -12,6 +16,16 @@ interface CommentCardProps {
 
 export default function CommentCard(props: CommentCardProps) {
     const {comment} = props
+
+    const { isUser, userProfile, login, logout } = useAuth();
+
+    const commentDeletion = api.comment.handleCommentDelete.useMutation()
+
+    const handleDelete = async () => {
+        if(typeof comment.id === "number"){
+        await commentDeletion.mutateAsync({id: comment.id})
+        }
+    }
 
     return(
 <section className="py-24 relative">
@@ -57,10 +71,11 @@ export default function CommentCard(props: CommentCardProps) {
                         </div>
                     </div>
                     <p className="text-gray-800 text-sm font-normal leading-snug">{comment.body}</p>
-                    <div className="w-full justify-end items-start gap-6 inline-flex">
+                    {userProfile.id === comment.authorId? <div className="w-full justify-end items-start gap-6 inline-flex">
                         <button
                             className="sm:w-fit w-full px-5 py-2.5 rounded-xl shadow-[0px_1px_2px_0px_rgba(16,_24,_40,_0.05)] hover:bg-gray-200 hover:border-transparent transition-all duration-700 ease-in-out border border-gray-200 justify-center items-center flex">
                             <span
+                                onClick={handleDelete}
                                 className="px-2 text-gray-900 text-base font-semibold leading-relaxed">Delete</span>
                         </button>
                         <button
@@ -69,7 +84,10 @@ export default function CommentCard(props: CommentCardProps) {
                                 className="px-2 py-px text-white text-base font-semibold leading-relaxed">Edit</span>
                         </button>
 
-                    </div>
+                    </div> 
+                    :
+                    null}
+       
                 </div>
             </div>
         </div>

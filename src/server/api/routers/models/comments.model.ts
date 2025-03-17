@@ -42,6 +42,8 @@ export const postComment = async (articleId : number, authorId: number, body: st
 }
 
 export const deleteComment = async (commentId: number) => {
+  console.log(commentId);
+  
   await prisma.article.delete({
     where: {
       id: commentId

@@ -9,6 +9,7 @@ export default function Article() {
 
   const {id} = useParams()
 
+
 const formattedId = Number(id);
 const {data: article} = api.article.getArticle.useQuery({id: formattedId})
 
@@ -19,7 +20,7 @@ const {data: article} = api.article.getArticle.useQuery({id: formattedId})
   
   return (
     <div>
-      {!article? <p>Loading</p> :   <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-teal-400 to-teal-800 text-white">
+      {!article? <p>Loading</p> :   <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#ff7e5f] to-[#feb47b] text-white">
       <div className="bg-gray-100 bg-opacity-85 text-gray-900 container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <Link href="/">
         <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow float-left mt-4 ml-4">
@@ -27,7 +28,7 @@ const {data: article} = api.article.getArticle.useQuery({id: formattedId})
 </button>
         </Link>
         <h2 className="text-3xl font-semibold text-gray-900">{article.title}</h2>
-        <img className="object-cover object-center w-full rounded-lg h-96" src={article.article_img_url}/>
+        <img className="object-cover object-center w-auto rounded-lg h-96" src={article.article_img_url}/>
         <div className="flex justify-between justify-evenly w-full">
         <p>{article.topicName}</p>
         <p>{article.createdAt}</p>

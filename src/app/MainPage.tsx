@@ -1,7 +1,6 @@
 "use client"
 import { api } from "~/trpc/react";
 import ArticleCard from "./ArticleCard";
-import { useAuth } from "./context/UserContext";
 import { useState, useEffect } from "react";
 import { Login } from "./Login";
 
@@ -26,33 +25,22 @@ export type UsersState = {
 
 
 export default function MainPage() {
-  const [articles, setArticles] = useState<ArticlesState[]>([])
-  const [users, setUsers] = useState<UsersState[]>([])
 
-    const {data: fetchedArticles, isLoading} = api.article.listArticles.useQuery()
-    const {data: fetchedUsers} = api.user.listUsers.useQuery()
+    const {data: articles} = api.article.listArticles.useQuery()
+    const {data: users} = api.user.listUsers.useQuery()
 
-    useEffect(() => {
-        if(fetchedArticles) {
-        setArticles(fetchedArticles)
-        }
-        if(fetchedUsers) {
-        setUsers(fetchedUsers)
-        }
-    }, [isLoading])
-    
 
-    if(!articles) return <p>Loading...</p>
+    if(!articles || !users) return <p>Loading...</p>
 
   return (
-    <div>
+    <>
         <Login users={users}/>
-      <h1 className="text-2xl font-bold dark:text-white">Articles</h1>
-      <article className="m-5">
+      <h1 className="text-2xl font-bold dark:text-white m-auto">Articles</h1>
+      <ul className="m-auto w-max">
       {articles.map((article) => {
         return <ArticleCard article={article} key={article.id} />;
       })}
-      </article>
-    </div>
-  );
+      </ul>
+  </>
+  )
 }
