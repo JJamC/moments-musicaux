@@ -13,7 +13,19 @@ export const findArticles = async () => {
       article_img_url: true,
     },
   });
-  return articles;
+  const formattedArticles = articles.map((article) => {
+    const formattedArticle = {...article}
+    const date = new Date(article.createdAt);
+    const simpleDate = date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    formattedArticle.createdAt = simpleDate
+    return formattedArticle
+  })
+  
+  return formattedArticles;
 };
 
 export const fetchArticle = async (id: number) => {

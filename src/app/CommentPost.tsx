@@ -1,36 +1,15 @@
 "use client";
-
+import { api } from "~/trpc/react";
 import { useState } from "react";
-import { CommentMutationType } from "./Comments";
-
-interface CommentState {
-    articleId: number,
-    authorId: number,
-    body: string,
-    createdAt: string,
-    id: number,
-    votes: number
-}
-
-interface CommentStateToPost {
-  articleId: number,
-  authorId: number,
-  body: string
-}
 
 interface CommentPostProps {
   articleId: number;
   authorId: number;
-  commentMutation: CommentMutationType
 }
 
 export default function CommentPost(props: CommentPostProps) {
-  const { articleId, authorId, commentMutation} = props;
-  // const [commentToPost, setCommentToPost] = useState<CommentStateToPost>({
-  //   articleId: articleId,
-  //   authorId: authorId,
-  //   body: ""
-  // })
+  const { articleId, authorId} = props;
+
   const [commentBody, setCommentBody] = useState("");
 
   const commentToPost = {
@@ -39,10 +18,16 @@ export default function CommentPost(props: CommentPostProps) {
       body: commentBody,
   }
 
+  const utils = api.useUtils();
+
+  const commentMutation = api.comment.handleCommentPost.useMutation({
+    // Invalidate queries upon mutation success to trigger a refetch
+    onSuccess: () => {
+      utils.invalidate();
+    },
+  });
   const handleCommentPost = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  console.log(commentToPost);
-  
+    e.preventDefault()  
   await commentMutation.mutateAsync(commentToPost)
   setCommentBody("")
 }

@@ -1,6 +1,6 @@
 import { prisma } from "../../globalPrisma";
 
-export const findCommentsById = async (id: number) => {
+export const findCommentsByArticleId = async (articleId: number) => {
 
   const comments = await prisma.comments.findMany({
     select: {
@@ -12,7 +12,7 @@ export const findCommentsById = async (id: number) => {
         createdAt: true,
   },
   where: {
-    id: id,
+    articleId: articleId,
   },
 })
 if (!comments) {
@@ -44,7 +44,7 @@ export const postComment = async (articleId : number, authorId: number, body: st
 export const deleteComment = async (commentId: number) => {
   console.log(commentId);
   
-  await prisma.article.delete({
+  await prisma.comments.delete({
     where: {
       id: commentId
     }

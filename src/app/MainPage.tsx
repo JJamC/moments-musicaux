@@ -1,8 +1,7 @@
 "use client"
 import { api } from "~/trpc/react";
 import ArticleCard from "./ArticleCard";
-import { useState, useEffect } from "react";
-import { Login } from "./Login";
+import  Login  from "./login/page";
 
 type ArticlesState = {
     id: number,

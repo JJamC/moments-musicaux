@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { publicProcedure } from "../../trpc";
-import { deleteComment, findCommentsById, postComment } from "../models/comments.model";
+import { deleteComment, findCommentsByArticleId, postComment } from "../models/comments.model";
 
 interface CommentResponse {
   id: number,
@@ -29,7 +29,7 @@ publicProcedure
   )
   .query(async (opts) => {
     const { input: {id} } = opts
-    const comments = await findCommentsById(id)
+    const comments = await findCommentsByArticleId(id)
     return comments
   });
 

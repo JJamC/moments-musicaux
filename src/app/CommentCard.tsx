@@ -19,7 +19,15 @@ export default function CommentCard(props: CommentCardProps) {
 
     const { isUser, userProfile, login, logout } = useAuth();
 
-    const commentDeletion = api.comment.handleCommentDelete.useMutation()
+
+  // Call useUtils() at the top level of the component, outside of the mutation.
+  const utils = api.useUtils();
+
+    const commentDeletion = api.comment.handleCommentDelete.useMutation({
+        onSuccess: () => {
+          utils.invalidate();
+        },
+      })
 
     const handleDelete = async () => {
         if(typeof comment.id === "number"){
@@ -28,10 +36,9 @@ export default function CommentCard(props: CommentCardProps) {
     }
 
     return(
-<section className="py-24 relative">
-<div className="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
+<section className="py-7 relative">
+<div className="w-full max-w-7xl px-4 md:px-5 lg:px-5">
     <div className="w-full flex-col justify-start items-start lg:gap-14 gap-7 inline-flex">
-        <h2 className="text-gray-900 text-4xl font-bold font-manrope leading-normal">Comments</h2>
         <div className="w-full flex-col justify-start items-start gap-8 flex">
             <div
                 className="w-full lg:p-8 p-5 bg-white rounded-3xl border border-gray-200 flex-col justify-start items-end gap-2.5 flex">

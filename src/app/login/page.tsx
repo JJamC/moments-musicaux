@@ -1,4 +1,5 @@
-import { useAuth } from "./context/UserContext";
+"use client"
+import { useAuth } from "../context/UserContext";
 import { useState } from "react";
 
 interface LoginProps {
@@ -12,7 +13,7 @@ interface LoginProps {
 
 }
 
-export function Login(props: LoginProps) {
+export default function Login(props: LoginProps) {
 
     const { users } = props
 
@@ -33,8 +34,14 @@ export function Login(props: LoginProps) {
     
     return (
         <div>
+            <h1>Login</h1>
         {isUser ? 
-        <p>"debussyC"</p> : 
+        <>
+        <p>{userProfile.username}</p> 
+        <br/>
+        <button onClick={logout}>Logout</button>
+        </>
+        : 
         <form onSubmit={(e) => {
             handleLogin(e)}}>
             <label>Enter your Username here:</label>
@@ -48,10 +55,8 @@ export function Login(props: LoginProps) {
             }}
             ></input>
             <br/>
-            <button type="submit">Login</button>
+            <button type="submit">Login</button>     
             </form>}
-        <h2>User: {isUser ? "Czerny" : "logout"}</h2>
-          <button onClick={logout}>Logout</button>
           </div>
     )
 }

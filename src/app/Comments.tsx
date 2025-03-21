@@ -16,8 +16,6 @@ export function Comments(props: CommentsProps) {
   const { data: comments, isLoading, isError, error } =
     api.comment.listCommentsByArticle.useQuery({ id: id });
 
-  const commentMutation = api.comment.handleCommentPost.useMutation()  
-
   if (isLoading) return <p>loading...</p>;
 
   if (isError) return <div>Error: {error?.message}</div>;
@@ -27,8 +25,8 @@ export function Comments(props: CommentsProps) {
       <CommentPost
         articleId={id}
         authorId={1}
-        commentMutation={commentMutation}
       />
+         <h2 className="text-gray-900 text-4xl font-bold font-manrope leading-normal">Comments</h2>
       {comments?.map((comment) => {
         return <CommentCard comment={comment} key={comment.id} />;
       })}
