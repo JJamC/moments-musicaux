@@ -26,7 +26,6 @@ export function Comments(props: CommentsProps) {
         articleId={id}
         authorId={1}
       />
-         <h2 className="text-gray-900 text-4xl font-bold font-manrope leading-normal">Comments</h2>
       {comments?.map((comment) => {
         return <CommentCard comment={comment} key={comment.id} />;
       })}

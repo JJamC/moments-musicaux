@@ -1,7 +1,24 @@
 import { prisma } from "../../globalPrisma";
 
-export const findArticles = async () => {
-  const articles = await prisma.article.findMany({
+export const findArticles = async (topic: string) => {
+
+  if(topic === "all") {
+    const articles = await prisma.article.findMany({
+      select: {
+        id: true,
+        title: true,
+        topicName: true,
+        authorId: true,
+        body: true,
+        createdAt: true,
+        votes: true,
+        article_img_url: true,
+      },
+    });
+    
+    return articles;
+  }
+  const filteredArticles = await prisma.article.findMany({
     select: {
       id: true,
       title: true,
@@ -12,20 +29,13 @@ export const findArticles = async () => {
       votes: true,
       article_img_url: true,
     },
+    where: {
+      topicName: topic
+    }
   });
-  const formattedArticles = articles.map((article) => {
-    const formattedArticle = {...article}
-    const date = new Date(article.createdAt);
-    const simpleDate = date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-    formattedArticle.createdAt = simpleDate
-    return formattedArticle
-  })
-  
-  return formattedArticles;
+
+  return filteredArticles
+
 };
 
 export const fetchArticle = async (id: number) => {

@@ -1,40 +1,36 @@
 "use client"
 import { api } from "~/trpc/react";
 import ArticleCard from "./ArticleCard";
-import  Login  from "./login/page";
-
-type ArticlesState = {
-    id: number,
-    title: string,
-    topicName: string,
-    authorId: number,
-    body: string,
-    createdAt: string,
-    votes: number,
-    article_img_url: string,
-}
-
-export type UsersState = {
-    id: number,
-    createdAt: string,
-    username: string,
-    email: string,
-    avatar_url: string,
-}
-
+import { useState } from "react";
 
 export default function MainPage() {
 
-    const {data: articles} = api.article.listArticles.useQuery()
-    const {data: users} = api.user.listUsers.useQuery()
+    const [topic, setTopic] = useState("all")
+
+    const {data: articles} = api.article.listArticles.useQuery({topic})
+    const {data: topics} = api.topic.listTopics.useQuery()
 
 
-    if(!articles || !users) return <p>Loading...</p>
+    if(!articles) return <p>Loading...</p>
 
   return (
     <>
-        <Login users={users}/>
       <h1 className="text-2xl font-bold dark:text-white m-auto">Articles</h1>
+      <div className="text-black">
+      <select
+        name="topics"
+        id="topics"
+        onChange={(e) => {
+          setTopic(e.target.value)
+        }}
+      >
+        <option className="text-black">Select Articles by Topic</option>
+        <option value="all">All</option>
+        {topics?.map((topic) => {
+          return <option value={topic.slug}>{topic.slug}</option>
+        })}
+      </select>
+        </div>
       <ul className="m-auto w-max">
       {articles.map((article) => {
         return <ArticleCard article={article} key={article.id} />;

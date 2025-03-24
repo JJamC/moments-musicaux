@@ -4,7 +4,9 @@ import { fetchArticle, findArticles, incrementArticleVote, decrementArticleVote 
 
 
 export const listArticles = 
-publicProcedure.output(
+publicProcedure
+.input(z.object({ topic: z.string()}))
+.output(
     z.array(
       z.object({
         id: z.number(),
@@ -18,11 +20,11 @@ publicProcedure.output(
       })
     )
   )
-  .query(async () => {
-    const articles = await findArticles()
+  .query(async (opts) => {
+    const { input: {topic} } = opts
+    const articles = await findArticles(topic)
     return articles.map((article) => {
       article.topicName = article.topicName[0]?.toUpperCase() + article.topicName.slice(1)
-      //created_at to be formatted
       return article
     })
   });

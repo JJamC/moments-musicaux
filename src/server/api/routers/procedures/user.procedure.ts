@@ -17,8 +17,5 @@ export const listUsers = publicProcedure
   )
   .query(async () => {
     const users = await findUsers()
-    return users.map(user => ({
-      ...user,
-      createdAt: user.createdAt.toISOString(), // Convert Date to string (ISO format)
-    }));
+    return users
   });

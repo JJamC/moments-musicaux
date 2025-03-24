@@ -1,6 +1,10 @@
 "use client"
 import { useAuth } from "../context/UserContext";
 import { useState } from "react";
+import { api } from "~/trpc/react";
+import Profile from "../Profile";
+import { User } from "@prisma/client";
+import Link from "next/link";
 
 interface LoginProps {
         users: {
@@ -15,37 +19,55 @@ interface LoginProps {
 
 export default function Login(props: LoginProps) {
 
-    const { users } = props
+    const {data: users} = api.user.listUsers.useQuery()
 
     const [userToFetch, setUserToFetch] = useState("")
+    const [loggedInUser, setLoggedInUser] = useState<User>({
+        id: 0,
+        createdAt: "",
+        username: "",
+        email: "",
+        avatar_url: "",
+    })
 
     const { isUser, userProfile, login, logout } = useAuth();
 
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        if(users) {
         const user = users.filter((user) => user.username === userToFetch)[0]
         if(user) {
             login(user)
+            setLoggedInUser(user)
         }
-        setUserToFetch("")
-        console.log(user);
-        console.log(userProfile);
+            setUserToFetch("")
+            console.log(user);
+            console.log(userProfile);
+        }
     }
     
     return (
-        <div>
-            <h1>Login</h1>
+        <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#ff7e5f] to-[#feb47b] text-white">
+                        <Link href="/">
+        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow float-left mb-4 ml-4">
+  Home
+</button>
+        </Link>
+            <div className="bg-gray-100 bg-opacity-85 text-gray-900 container flex flex-col items-center justify-center gap-12 px-4 py-16">
         {isUser ? 
         <>
-        <p>{userProfile.username}</p> 
+        <Profile user={userProfile}></Profile>
         <br/>
-        <button onClick={logout}>Logout</button>
+        <button 
+                    className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        onClick={logout}>Logout</button>
         </>
         : 
-        <form onSubmit={(e) => {
+        <form 
+        className="flex flex-col text-center"
+        onSubmit={(e) => {
             handleLogin(e)}}>
-            <label>Enter your Username here:</label>
-            <br/>
+            <label>Username:</label>
             <input 
             className="text-black"  
             type="text"
@@ -55,8 +77,21 @@ export default function Login(props: LoginProps) {
             }}
             ></input>
             <br/>
-            <button type="submit">Login</button>     
+            <label>Password:</label>
+            <input 
+            className="text-black mb-[10]"  
+            type="text"
+            value="password"
+            onChange={(e) => {
+                setUserToFetch(e.target.value)
+            }}
+            ></input>
+            <br/>
+            <button 
+            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+            type="submit">Login</button>     
             </form>}
+            </div>
           </div>
     )
 }

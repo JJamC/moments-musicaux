@@ -11,7 +11,7 @@ export default function Header() {
     <h1 className="float-left">Moments Musicaux</h1>
         {isUser?
         <Link href={"/login"}>
-        <a><p>Logout</p></a>
+        <p>Logout</p>
         </Link>
     :
     <Link href={"/login"}>

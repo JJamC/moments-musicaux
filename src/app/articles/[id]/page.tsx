@@ -27,18 +27,20 @@ const {data: article} = api.article.getArticle.useQuery({id: formattedId})
   Home
 </button>
         </Link>
-        <h2 className="text-3xl font-semibold text-gray-900">{article.title}</h2>
+        <article className="flex flex-col items-center">
+        <h2 className="mb-[30] text-3xl font-semibold text-gray-900">{article.title}</h2>
         <img className="object-cover object-center w-auto rounded-lg h-96" src={article.article_img_url}/>
-        <div className="flex justify-between justify-evenly w-full">
+        <div className="mt-[30] mb-[30] flex items-center justify-between justify-evenly w-full">
         <p>{article.topicName}</p>
         <p>{article.createdAt}</p>
         <VoteButton id={article.id} votes={article.votes}/>
         </div>
-        <section className="bg-white shadow-lg rounded-lg p-6">
-          <p className="mt-4 text-lg leading-relaxed text-gray-900">
+        <section className="bg-white shadow-lg rounded-lg p-2">
+          <p className="text-center text-lg leading-relaxed text-gray-900">
             {article.body}
           </p>
         </section>
+        </article>
       <Comments id={article.id}/>
       </div>
     </main>}

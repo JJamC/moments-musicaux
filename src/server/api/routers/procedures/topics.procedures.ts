@@ -14,7 +14,11 @@ publicProcedure.output(
   )
   .query(async () => {
     const topics = await findTopics()
-    return topics;
+    return topics.map((topic) => {
+      const topicCopy = {...topic}
+      topicCopy.slug = topicCopy.slug.charAt(0).toUpperCase() + topicCopy.slug.slice(1)
+      return topicCopy
+    });
   });
 
   

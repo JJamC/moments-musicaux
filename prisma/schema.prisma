@@ -9,7 +9,7 @@ generator client {
 
 model User {
   id         Int        @id @default(autoincrement())
-  createdAt  DateTime   @default(now())
+  createdAt  String   
   username   String     @db.VarChar(255)
   email      String     @db.VarChar(255)
   avatar_url String
