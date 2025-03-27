@@ -50,3 +50,41 @@ export const deleteComment = async (commentId: number) => {
     }
   })
 }
+
+export const updateComment = async (commentId: number, newBody: string) => {
+  const updatedComment = await prisma.comments.update({
+    where: {
+      id: commentId,
+    },
+    data: {
+      body: newBody,
+    },
+  })
+  return updatedComment
+}
+
+export const incrementCommentVotes = async (commentId: number) => {
+  await prisma.comments.update({
+    where: {
+      id: commentId,
+    },
+    data: {
+      votes: {
+        increment: 1,
+      },
+    },
+  });
+};
+
+export const decrementCommentVotes = async (commentId: number) => {
+  await prisma.comments.update({
+    where: {
+      id: commentId,
+    },
+    data: {
+      votes: {
+        decrement: 1,
+      },
+    },
+  });
+};

@@ -1,10 +1,13 @@
-import { handleCommentDelete, handleCommentPost, listCommentsByArticle } from "./procedures/comments.procedures";
+import { downVoteCommentVotes, editComment, handleCommentDelete, handleCommentPost, listCommentsByArticle, upVoteCommentVotes } from "./procedures/comments.procedures";
 import { createTRPCRouter } from "../trpc";
 
 export const commentRouter = createTRPCRouter({
 listCommentsByArticle,
 handleCommentPost,
-handleCommentDelete
+handleCommentDelete,
+editComment,
+upVoteCommentVotes,
+downVoteCommentVotes
 });
 
 export type CommentRouter = typeof commentRouter;

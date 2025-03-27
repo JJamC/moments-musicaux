@@ -24,7 +24,6 @@ export function Comments(props: CommentsProps) {
     <div>
       <CommentPost
         articleId={id}
-        authorId={1}
       />
       {comments?.map((comment) => {
         return <CommentCard comment={comment} key={comment.id} />;

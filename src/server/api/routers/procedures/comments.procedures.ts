@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { publicProcedure } from "../../trpc";
-import { deleteComment, findCommentsByArticleId, postComment } from "../models/comments.model";
+import { decrementCommentVotes,incrementCommentVotes, deleteComment, findCommentsByArticleId, postComment, updateComment } from "../models/comments.model";
 
 interface CommentResponse {
   id: number,
@@ -64,4 +64,29 @@ publicProcedure
   .mutation(async(opts) : Promise<void> => {
     const { input : {id} } = opts
     await deleteComment(id)
+  })
+
+  export const editComment = 
+  publicProcedure
+  .input(z.object({commentId: z.number(), body: z.string()}))
+  .mutation(async(opts) : Promise<CommentResponse> => {
+    const { input: {commentId, body}} = opts
+    const editedComment = await updateComment(commentId, body)
+    return editedComment
+  })
+
+  export const upVoteCommentVotes =
+  publicProcedure
+  .input(z.object({ id: z.number()}))
+  .mutation(async (opts) => {
+    const {input: {id}} = opts
+    await incrementCommentVotes(id)
+  })
+
+  export const downVoteCommentVotes =
+  publicProcedure
+  .input(z.object({ id: z.number()}))
+  .mutation(async (opts) => {
+    const {input: {id}} = opts
+    await decrementCommentVotes(id)
   })

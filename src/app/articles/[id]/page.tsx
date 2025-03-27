@@ -21,26 +21,24 @@ const {data: article} = api.article.getArticle.useQuery({id: formattedId})
   return (
     <div>
       {!article? <p>Loading</p> :   <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#ff7e5f] to-[#feb47b] text-white">
-      <div className="bg-gray-100 bg-opacity-85 text-gray-900 container flex flex-col items-center justify-center gap-12 px-4 py-16">
+      <div className="bg-gray-100 bg-opacity-65 text-gray-900 container flex flex-col items-center justify-center gap-12">
         <Link href="/">
         <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow float-left mt-4 ml-4">
   Home
 </button>
         </Link>
-        <article className="flex flex-col items-center">
         <h2 className="mb-[30] text-3xl font-semibold text-gray-900">{article.title}</h2>
-        <img className="object-cover object-center w-auto rounded-lg h-96" src={article.article_img_url}/>
-        <div className="mt-[30] mb-[30] flex items-center justify-between justify-evenly w-full">
+        <article className="p-2 flex flex-col items-center"> 
+        <img className="p-2 object-cover object-center w-auto rounded-lg h-96" src={article.article_img_url}/>
+        <div className="p-2 flex flex-col text-left w-full">
         <p>{article.topicName}</p>
         <p>{article.createdAt}</p>
         <VoteButton id={article.id} votes={article.votes}/>
         </div>
-        <section className="bg-white shadow-lg rounded-lg p-2">
-          <p className="text-center text-lg leading-relaxed text-gray-900">
+        </article>
+          <p className="bg-white shadow-lg rounded-lg p-2">
             {article.body}
           </p>
-        </section>
-        </article>
       <Comments id={article.id}/>
       </div>
     </main>}

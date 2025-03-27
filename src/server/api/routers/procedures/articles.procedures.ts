@@ -5,7 +5,7 @@ import { fetchArticle, findArticles, incrementArticleVote, decrementArticleVote 
 
 export const listArticles = 
 publicProcedure
-.input(z.object({ topic: z.string()}))
+.input(z.object({ topic: z.string(), sortBy: z.string()}))
 .output(
     z.array(
       z.object({
@@ -21,11 +21,12 @@ publicProcedure
     )
   )
   .query(async (opts) => {
-    const { input: {topic} } = opts
-    const articles = await findArticles(topic)
+    const { input: {topic, sortBy} } = opts
+    const articles = await findArticles(topic, sortBy)
     return articles.map((article) => {
-      article.topicName = article.topicName[0]?.toUpperCase() + article.topicName.slice(1)
-      return article
+      const articleCopy = {...article}
+      articleCopy.topicName = article.topicName[0]?.toUpperCase() + article.topicName.slice(1)
+      return articleCopy
     })
   });
 
