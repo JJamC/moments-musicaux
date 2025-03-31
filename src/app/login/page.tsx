@@ -24,7 +24,7 @@ export default function Login() {
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if(users) {
-        const user = users.filter((user) => user.username === userToFetch)[0]
+            const user = users.find((user) => user.username === userToFetch);
         if(user) {
             login(user)
             setLoggedInUser(user)

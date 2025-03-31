@@ -1,6 +1,6 @@
 import { prisma } from "../../globalPrisma";
 
-export const findArticles = async (topic: string, sortBy: string = "createdAt") => {
+export const findArticles = async (topic: string, sortBy = "createdAt") => {
 
   if(topic === "all") {
     const articles = await prisma.article.findMany({

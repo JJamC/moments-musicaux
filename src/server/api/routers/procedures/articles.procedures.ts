@@ -51,7 +51,7 @@ publicProcedure
     const articleCopy = {...article}
     articleCopy.topicName = article.topicName[0]?.toUpperCase() + article.topicName.slice(1)
     if (articleCopy.createdAt) {
-      const dateMatch = articleCopy.createdAt.match(/^(\d{4}-\d{2}-\d{2})/);
+      const dateMatch = /^(\d{4}-\d{2}-\d{2})/.exec(articleCopy.createdAt);
       articleCopy.createdAt = dateMatch ? dateMatch[0] : "Date Unknown"; 
     }
     return articleCopy

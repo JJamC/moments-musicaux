@@ -1,5 +1,4 @@
 "use client";
-import { handleCommentDelete } from "~/server/api/routers/procedures/comments.procedures";
 import { useAuth } from "./context/UserContext";
 import { api } from "~/trpc/react";
 import { useState } from "react";
@@ -18,7 +17,7 @@ interface CommentCardProps {
 export default function CommentCard(props: CommentCardProps) {
   const { comment } = props;
 
-  const { isUser, userProfile, login, logout } = useAuth();
+  const {userProfile } = useAuth();
   const [edit, setEdit] = useState(comment.body);
   const [editorOpen, setEditorOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -29,13 +28,13 @@ export default function CommentCard(props: CommentCardProps) {
   const utils = api.useUtils();
 
   const commentDeletion = api.comment.handleCommentDelete.useMutation({
-    onSuccess: () => {
-      utils.invalidate();
+    onSuccess: async () => {
+      await utils.invalidate();
     },
   });
   const commentUpdate = api.comment.editComment.useMutation({
-    onSuccess: () => {
-      utils.invalidate();
+    onSuccess: async () => {
+      await utils.invalidate();
     },
   });
   const commentUpVote = api.comment.upVoteCommentVotes.useMutation()
@@ -120,8 +119,8 @@ export default function CommentCard(props: CommentCardProps) {
                     <div className="flex items-center justify-center rounded-xl border border-gray-400 px-5 py-2.5 shadow-[0px_1px_2px_0px_rgba(16,_24,_40,_0.05)] transition-all duration-700 ease-in-out hover:border-green-600">
                     {hasVoted?                         
                     <button 
-                        onClick={((e) => {
-                          handleDownVote(e)
+                        onClick={(async (e) => {
+                         await handleDownVote(e)
                         })}
                         className="text-base font-semibold leading-relaxed text-gray-400 transition-all duration-700 ease-in-out text-green-600">
                                                   <svg
@@ -140,8 +139,8 @@ export default function CommentCard(props: CommentCardProps) {
                         </button>
                          : 
                         <button 
-                        onClick={((e) => {
-                          handleUpVote(e)
+                        onClick={(async (e) => {
+                          await handleUpVote(e)
                         })}
                         className="text-base font-semibold leading-relaxed text-gray-400 transition-all duration-700 ease-in-out group-hover:text-green-600">
                                                <svg
@@ -169,8 +168,8 @@ export default function CommentCard(props: CommentCardProps) {
                 </div>
                 {editorOpen ? (
                   <form
-                    onSubmit={(e) => {
-                      sendEditComment(e);
+                    onSubmit={async (e) => {
+                     await sendEditComment(e);
                     }}
                   >
                     <textarea
