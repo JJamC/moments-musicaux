@@ -1,33 +1,58 @@
-# Create T3 App
+# Moments Musicaux App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Welcome to the **Moments Musicaux App** project! This app is built with the **T3 stack**, including **Next.js**, **Prisma**, **tRPC**, and **React**.
+It is based on the NorthCoders NC News sprint and was a built as an exercise to improve my competency working in with this tech stack and in TypeScript.
 
-## What's next? How do I make an app with this?
+Follow the instructions below to set up and run the project.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Prerequisites
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Make sure you have the following installed on your machine:
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- **Node.js** (version 18.x or higher)
+- **npm** (version 10.x or higher)
+- **PostgreSQL** (for local database setup)
 
-## Learn More
+## Getting Started
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+### 1. Clone the Repository
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+First, clone the repository to your local machine:
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+```bash
+git clone https://github.com/your-username/moments-musicaux-app.git
+cd moments-musicaux-app
+```
+### 2. Install Dependencies
 
-## How do I deploy this?
+```bash
+npm install
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+### 3. Set Up the Database
+
+```bash
+npm run setup-db
+```
+
+### 4. Set Up Prisma
+
+```bash
+npm run postinstall
+npm run db:migrate
+npx prisma db seed
+```
+
+### 5. Dev Mode
+
+```bash
+npm run dev
+```
+
+### 6. Production Mode
 
 
+```bash
+npm run start
+```
 
- npx prisma db seed
