@@ -1,7 +1,6 @@
 "use client"
 import { createContext, useContext, useState } from "react";
 import { ReactNode  } from "react";
-import { UsersState } from "../MainPage";
 
 type userProfile = {
         id: number,
@@ -11,11 +10,10 @@ type userProfile = {
         avatar_url: string
     }
 
-
 type authContextType = {
     isUser: boolean;
     userProfile: userProfile
-    login: (user: UsersState) => void;
+    login: (user: userProfile) => void;
     logout: () => void;
 };
 
@@ -52,7 +50,7 @@ export function AuthProvider({ children }: Props) {
         email: "not known",
         avatar_url: "not known"})
 
-    const login = (user: UsersState) => {
+    const login = (user: userProfile) => {
         setIsUser(true);
         setUserProfile(user)        
     };
