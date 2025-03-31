@@ -20,7 +20,7 @@ Make sure you have the following installed on your machine:
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/moments-musicaux-app.git
+git clone https://github.com/JJamC/moments-musicaux.git
 cd moments-musicaux-app
 ```
 ### 2. Install Dependencies
