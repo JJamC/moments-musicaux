@@ -19,10 +19,16 @@ export default function VoteButton(props: VoteButtonProps) {
     const handleUpVote = async () => {
         try {
             setError(false)
+            if(hasDownVoted) {
+                setRenderedVotes((currVotes) => currVotes += 2)
+                await upVoteMutation.mutateAsync({ id, increment: 2 })
+            }
+            else{
+                setRenderedVotes((currVotes) => currVotes += 1)
+                await upVoteMutation.mutateAsync({ id, increment: 1 })
+            }
             setHasDownVoted(false)
-            setHasUpVoted(true)
-            setRenderedVotes((currVotes) => currVotes += 1)
-            await upVoteMutation.mutateAsync({ id });
+            setHasUpVoted(true);
         } catch (err) {
             setHasUpVoted(false)
             setError(true)
@@ -35,9 +41,15 @@ export default function VoteButton(props: VoteButtonProps) {
         try {
             setError(false)
             setHasDownVoted(true)
+            if(hasUpVoted) {
+                setRenderedVotes((currVotes) => currVotes -= 2)
+                await downVoteMutation.mutateAsync({ id, decrement: 2 });
+            }
+            else {
+                setRenderedVotes((currVotes) => currVotes -= 1)
+                await downVoteMutation.mutateAsync({ id, decrement: 1 });
+            }
             setHasUpVoted(false)
-            setRenderedVotes((currVotes) => currVotes -= 1)
-            await downVoteMutation.mutateAsync({ id });
         } catch (err) {
             setHasDownVoted(false)
             setError(true)

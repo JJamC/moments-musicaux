@@ -92,7 +92,7 @@ export default function CommentCard(props: CommentCardProps) {
   };
 
   return (
-    <section className="relative py-7">
+    <li className="relative py-1">
       <div className="w-full max-w-7xl px-4 md:px-5 lg:px-5">
         <div className="inline-flex w-full flex-col items-start justify-start gap-7 lg:gap-14">
           <div className="flex w-full flex-col items-start justify-start gap-8">
@@ -230,6 +230,6 @@ export default function CommentCard(props: CommentCardProps) {
           </div>
         </div>
       </div>
-    </section>
+    </li>
   );
 }

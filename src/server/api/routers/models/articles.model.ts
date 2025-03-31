@@ -72,27 +72,27 @@ export const fetchArticle = async (id: number) => {
     return article;
 };
 
-export const incrementArticleVote = async (id: number) => {
+export const incrementArticleVote = async (id: number, increment: number) => {
   await prisma.article.update({
     where: {
       id: id,
     },
     data: {
       votes: {
-        increment: 1,
+        increment: increment,
       },
     },
   });
 };
 
-export const decrementArticleVote = async (id: number) => {
+export const decrementArticleVote = async (id: number, decrement: number) => {
   await prisma.article.update({
     where: {
       id: id,
     },
     data: {
       votes: {
-        decrement: 1,
+        decrement: decrement,
       },
     },
   });

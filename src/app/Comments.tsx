@@ -25,9 +25,11 @@ export function Comments(props: CommentsProps) {
       <CommentPost
         articleId={id}
       />
+      <ul>
       {comments?.map((comment) => {
         return <CommentCard comment={comment} key={comment.id} />;
       })}
+      </ul>
     </div>
   );
 }

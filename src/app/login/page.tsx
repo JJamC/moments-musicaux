@@ -21,7 +21,7 @@ export default function Login(props: LoginProps) {
 
     const {data: users} = api.user.listUsers.useQuery()
 
-    const [userToFetch, setUserToFetch] = useState("")
+    const [userToFetch, setUserToFetch] = useState("faureG")
     const [loggedInUser, setLoggedInUser] = useState<User>({
         id: 0,
         createdAt: "",
@@ -41,13 +41,11 @@ export default function Login(props: LoginProps) {
             setLoggedInUser(user)
         }
             setUserToFetch("")
-            console.log(user);
-            console.log(userProfile);
         }
     }
     
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#ff7e5f] to-[#feb47b] text-white">
+        <div className="flex min-h-screen flex-col items-center justify-center text-white bg-gradient-to-b from-[#B7C9D2] to-[#5D4B81]">
                         <Link href="/">
         <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow float-left mb-4 ml-4">
   Home

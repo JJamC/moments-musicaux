@@ -1,21 +1,15 @@
 "use client"
 import { api } from "~/trpc/react";
-import ArticleCard from "./ArticleCard";
 import { useState } from "react";
+import Articles from "./Articles";
 
 export default function MainPage() {
 
     const [topic, setTopic] = useState("all")
     const [sortBy, setSortBy] = useState("createdAt")
 
-    const {data: articles} = api.article.listArticles.useQuery({topic, sortBy})
     const {data: topics} = api.topic.listTopics.useQuery()
-
-    console.log(topic);
     
-
-
-    if(!articles) return <p>Loading...</p>
 
   return (
     <>
@@ -46,11 +40,7 @@ export default function MainPage() {
         <option value="votes">Upvotes</option>
       </select>
         </div>
-      <ul className="m-auto w-max">
-      {articles.map((article) => {
-        return <ArticleCard article={article} key={article.id} />;
-      })}
-      </ul>
+        <Articles topic={topic} sortBy={sortBy}/>
   </>
   )
 }

@@ -54,11 +54,8 @@ export function AuthProvider({ children }: Props) {
 
     const login = (user: UsersState) => {
         setIsUser(true);
-        setUserProfile(user)
-        console.log(userProfile);
-        
+        setUserProfile(user)        
     };
-    console.log(userProfile);
     
 
     const logout = () => {

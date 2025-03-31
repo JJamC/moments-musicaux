@@ -20,8 +20,8 @@ const {data: article} = api.article.getArticle.useQuery({id: formattedId})
   
   return (
     <div>
-      {!article? <p>Loading</p> :   <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#ff7e5f] to-[#feb47b] text-white">
-      <div className="bg-gray-100 bg-opacity-65 text-gray-900 container flex flex-col items-center justify-center gap-12">
+      {!article? <p>Loading</p> :   <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#B7C9D2] to-[#5D4B81] text-white">
+      <div className="bg-gray-100 bg-opacity- text-gray-900 container flex flex-col items-center justify-center gap-12">
         <Link href="/">
         <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow float-left mt-4 ml-4">
   Home
@@ -29,16 +29,18 @@ const {data: article} = api.article.getArticle.useQuery({id: formattedId})
         </Link>
         <h2 className="mb-[30] text-3xl font-semibold text-gray-900">{article.title}</h2>
         <article className="p-2 flex flex-col items-center"> 
-        <img className="p-2 object-cover object-center w-auto rounded-lg h-96" src={article.article_img_url}/>
-        <div className="p-2 flex flex-col text-left w-full">
+        <div className="p-2 flex flex-col text-left bg-gradient-to-b from-[#B7C9D2] to-[#5D4B81] md:rounded-s-lg">
+        <img className="p-2 object-cover w-auto h-96 md:rounded-s-lg" src={article.article_img_url}/>
         <p>{article.topicName}</p>
         <p>{article.createdAt}</p>
         <VoteButton id={article.id} votes={article.votes}/>
         </div>
         </article>
-          <p className="bg-white shadow-lg rounded-lg p-2">
+        <section className="w-full max-w-7xl px-4 md:px-5 lg:px-5 mb-5">
+          <p className="bg-white shadow-lg rounded-lg py-3 px-5 ">
             {article.body}
           </p>
+        </section>
       <Comments id={article.id}/>
       </div>
     </main>}
