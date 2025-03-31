@@ -6,18 +6,7 @@ import Profile from "../Profile";
 import { User } from "@prisma/client";
 import Link from "next/link";
 
-interface LoginProps {
-        users: {
-            id: number,
-        createdAt: string,
-        username: string,
-        email: string,
-        avatar_url: string,
-        }[]
-
-}
-
-export default function Login(props: LoginProps) {
+export default function Login() {
 
     const {data: users} = api.user.listUsers.useQuery()
 
