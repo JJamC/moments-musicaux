@@ -17,5 +17,12 @@ export const listUsers = publicProcedure
   )
   .query(async () => {
     const users = await findUsers()
-    return users
+    return users.map((user) => {
+      const userCopy = {...user}
+      if (userCopy.createdAt) {
+        const dateMatch = /^(\d{4}-\d{2}-\d{2})/.exec(userCopy.createdAt);
+        userCopy.createdAt = dateMatch ? dateMatch[0] : "Date Unknown"; 
+      }
+      return userCopy
+    })
   });
