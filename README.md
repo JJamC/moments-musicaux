@@ -1,7 +1,10 @@
 # Moments Musicaux App
 
-Welcome to the **Moments Musicaux App** project! This app is built with the **T3 stack**, including **Next.js**, **Prisma**, **tRPC**, and **React**.
+Welcome to the **Moments Musicaux App** project! This web app is built with the **T3 stack**, including **Next.js**, **Prisma**, **tRPC**, and **React**.
 It is based on the NorthCoders NC News sprint and was a built as an exercise to improve my competency working with this tech stack.
+
+Hosted Website Link: moments-musicaux.vercel.app
+
 
 Follow the instructions below to set up and run the project.
 
@@ -47,12 +50,5 @@ npx prisma db seed
 
 ```bash
 npm run dev
-```
-
-### 6. Production Mode
-
-
-```bash
-npm run start
 ```
 
