@@ -42,6 +42,11 @@ npm run setup-db
 
 ```bash
 npm run postinstall
+```
+
+Create a .env variable here for your local psql database 
+
+```bash
 npm run db:migrate
 npx prisma db seed
 ```
