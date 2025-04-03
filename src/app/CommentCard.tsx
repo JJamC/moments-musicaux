@@ -5,6 +5,8 @@ import { useState } from "react";
 
 interface CommentCardProps {
   comment: {
+    username?: string;
+    avatar_url?: string;
     articleId: number;
     authorId: number;
     body: string;
@@ -17,14 +19,13 @@ interface CommentCardProps {
 export default function CommentCard(props: CommentCardProps) {
   const { comment } = props;
 
-  const {userProfile } = useAuth();
+  const {userProfile} = useAuth();
   const [edit, setEdit] = useState(comment.body);
   const [editorOpen, setEditorOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [hasVoted, setHasVoted] = useState(false)
   const [renderedVotes, setRenderedVotes] = useState(comment.votes)
 
-  // Call useUtils() at the top level of the component, outside of the mutation.
   const utils = api.useUtils();
 
   const commentDeletion = api.comment.handleCommentDelete.useMutation({
@@ -102,13 +103,13 @@ export default function CommentCard(props: CommentCardProps) {
                     <div className="flex h-10 w-10 items-start justify-start gap-2.5 rounded-full bg-slate-400">
                       <img
                         className="h-10 w-10 rounded-full object-cover"
-                        src="https://pagedone.io/asset/uploads/1710237485.png"
-                        alt="Danial Harrison image"
+                        src={comment.avatar_url}
+                        alt="profile pic"
                       />
                     </div>
                     <div className="inline-flex flex-col items-start justify-start gap-1">
                       <h5 className="text-sm font-semibold leading-snug text-gray-900">
-                        {comment.authorId}
+                        {comment.username}
                       </h5>
                       <h6 className="text-xs font-normal leading-5 text-gray-500">
                         {comment.createdAt}

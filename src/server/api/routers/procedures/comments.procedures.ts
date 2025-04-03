@@ -30,7 +30,14 @@ publicProcedure
   .query(async (opts) => {
     const { input: {id} } = opts
     const comments = await findCommentsByArticleId(id)
-    return comments
+    return comments.map((comment) => {
+      const commentCopy = {...comment}
+      if (commentCopy.createdAt) {
+        const dateMatch = /^(\d{4}-\d{2}-\d{2})/.exec(commentCopy.createdAt);
+        commentCopy.createdAt = dateMatch ? dateMatch[0] : "Date Unknown"; 
+      }
+      return commentCopy
+    })
   });
 
   export const handleCommentPost = 
