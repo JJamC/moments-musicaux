@@ -4,7 +4,7 @@ import { comments, CommentsData} from './data/comments'
 import { topics, TopicsData } from './data/topics'
 import { users, UsersData } from './data/users'
 
-const prisma = new PrismaClient()
+export const prisma = new PrismaClient()
 
 export interface SeedData {
   articles: ArticlesData[],

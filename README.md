@@ -32,22 +32,22 @@ cd moments-musicaux-app
 npm install
 ```
 
-### 3. Set Up the Database
+### 3. Create the Database
 
 ```bash
 npm run setup-db
 ```
 
-### 4. Set Up Prisma
+### 4. Generate Prisma Client, Apply Migrations and Seed
 
 ```bash
-npm run postinstall
+    npm run db:generate
+    npm run db:migrate
 ```
 
 Create a .env variable here for your local psql database 
 
 ```bash
-npm run db:migrate
 npx prisma db seed
 ```
 
