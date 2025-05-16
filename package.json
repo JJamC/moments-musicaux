@@ -44,7 +44,6 @@
     "superjson": "^2.2.1",
     "zod": "^3.23.3"
   },
-
   "devDependencies": {
     "@types/eslint": "^8.56.10",
     "@types/jest": "^29.5.14",
