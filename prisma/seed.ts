@@ -22,10 +22,7 @@ export async function seed({articles, comments, topics, users}: SeedData) {
 
   await prisma.user.createMany({ data: users });
   await prisma.topic.createMany({ data: topics });
-  await prisma.article.createMany({
-    data: articles,
-    skipDuplicates: true
-  });
+  await prisma.article.createMany({ data: articles});
   await prisma.comments.createMany({ data: comments });
 }
 
