@@ -6,7 +6,7 @@ It is based on the NorthCoders NC News sprint and was a built as an exercise to 
 Hosted Website Link: moments-musicaux.vercel.app
 
 
-Follow the instructions below to set up and run the project.
+Follow the instructions below to set up and run the project -
 
 ## Prerequisites
 
