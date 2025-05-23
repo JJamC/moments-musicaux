@@ -16,6 +16,7 @@ const config: Config = {
       useESM: true,
     },
   },
+  setupFiles: ["<rootDir>/jest.setup.ts"],
 };
 
 export default config;
